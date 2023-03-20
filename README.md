@@ -14,3 +14,6 @@ Start here: [kata.AppTest](https://github.com/LarsEckart/tcr-extension.starterpr
 * [AssertJ](https://assertj.github.io/doc/)
 * [Mockito](https://site.mockito.org/)
 
+## Running tests
+
+Execute the tests either right from your IDE or use the `run_tests` script.
