@@ -1,16 +1,20 @@
 package kata;
 
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
+import com.github.larseckart.tcr.CommitOnGreenExtension;
+import com.github.larseckart.tcr.TestCommitRevertExtension;
+import com.github.larseckart.tcr.TestCommitRevertMainExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@ExtendWith(TestCommitRevertExtension.class)        // revert everything on failure
+//@ExtendWith(TestCommitRevertMainExtension.class)    // revert tests on failure
+//@ExtendWith(CommitOnGreenExtension.class)    // don't revert, only commit on success
 class AppTest {
 
     @Test
     void my_first_test() {
-        assertThat("4" + "2").isEqualTo("42");
+        assertThat(App.answer()).isEqualTo("42");
     }
 }
