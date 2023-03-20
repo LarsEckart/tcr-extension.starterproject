@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'application'
+    id 'info.solidsoft.pitest' version '1.9.11'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.json:json:20230227")
+
+    testImplementation(platform("org.junit:junit-bom:5.9.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("com.approvaltests:approvaltests:18.5.0")
+    testImplementation("com.larseckart:junit-tcr-extensions:0.0.1")
+    testImplementation("org.mockito:mockito-core:5.2.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.2.0")
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs.add("-Xlint:all")
+    options.incremental = true
+}
+
+
+application {
+    mainClass.set("kata.App")
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "kata.App"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+project.tasks.check.dependsOn("pitest")
+pitest {
+    junit5PluginVersion = '1.0.0'
+    testSourceSets = [sourceSets.test]
+    mainSourceSets = [sourceSets.main]
+    targetClasses = ['kata.*']
+    pitestVersion = '1.9.11'
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+}
