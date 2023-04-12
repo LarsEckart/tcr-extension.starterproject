@@ -24,7 +24,7 @@ dependencies {
     testImplementation("com.approvaltests:approvaltests:18.5.0")
     testImplementation("com.larseckart:junit-tcr-extensions:0.0.1")
     testImplementation("org.mockito:mockito-core:5.2.0")
-    testImplementation("org.mockito:mockito-junit-jupiter:5.2.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.3.0")
 }
 
 tasks.withType(JavaCompile) {
