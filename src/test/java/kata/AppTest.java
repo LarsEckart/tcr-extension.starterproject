@@ -1,8 +1,8 @@
 package kata;
 
-import com.github.larseckart.tcr.CommitOnGreenExtension;
-import com.github.larseckart.tcr.TestCommitRevertExtension;
-import com.github.larseckart.tcr.TestCommitRevertMainExtension;
+import com.larseckart.tcr.CommitOnGreenExtension;
+import com.larseckart.tcr.TestCommitRevertExtension;
+import com.larseckart.tcr.TestCommitRevertMainExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
