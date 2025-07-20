@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}-latest
@@ -48,4 +52,4 @@ jobs:
           gh pr merge --auto --rebase "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{github.token}}
+          GITHUB_TOKEN: ${{github.token}}
